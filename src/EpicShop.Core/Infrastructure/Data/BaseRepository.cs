@@ -15,7 +15,7 @@ namespace EpicShop.Core.Infrastructure.Data
             _epicShopContext = epicShopContext;
         }
 
-        public T GetById(int id)
+        public T FindById(int id)
         {
             return _epicShopContext.Set<T>().SingleOrDefault(x => x.Id == id);
         }
