@@ -1,4 +1,5 @@
 ﻿using System;
+using EpicShop.Core.Infrastructure.Extensions;
 using EpicShop.Core.Modules.Brand;
 using EpicShop.Core.Modules.Product.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,20 +20,8 @@ namespace EpicShop.Core.Infrastructure.Data
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();
+            ChangeTracker.Entries().UpdateMetadataOnSave();
 
-            foreach (var entry in ChangeTracker.Entries())
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Property("CreatedDateTime").CurrentValue = DateTime.UtcNow;
-                    entry.Property("UpdatedDateTime").CurrentValue = DateTime.UtcNow;
-                }
-
-                if (entry.State == EntityState.Modified || entry.State == EntityState.Deleted)
-                {
-                    entry.Property("UpdatedDateTime").CurrentValue = DateTime.UtcNow;
-                }
-            }
             return base.SaveChanges();
         }
     }
