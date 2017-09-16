@@ -6,7 +6,8 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\" />
-    <Folder Include="Modules\" />
+    <Folder Include="Modules\Products\" />
+    <Folder Include="Modules\Brands\" />
   </ItemGroup>
 
 </Project>
