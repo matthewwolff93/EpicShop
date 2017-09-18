@@ -15,11 +15,15 @@ namespace EpicShop.Core.Infrastructure.Extensions
                 {
                     entry.Property("CreatedDateTime").CurrentValue = DateTime.UtcNow;
                     entry.Property("UpdatedDateTime").CurrentValue = DateTime.UtcNow;
+
+                    entry.Property("CreatedBy").CurrentValue = "TODO";
+                    entry.Property("UpdatedBy").CurrentValue = "TODO";
                 }
 
                 if (entry.State == EntityState.Modified || entry.State == EntityState.Deleted)
                 {
                     entry.Property("UpdatedDateTime").CurrentValue = DateTime.UtcNow;
+                    entry.Property("UpdatedBy").CurrentValue = "TODO";
                 }
             }
         }
