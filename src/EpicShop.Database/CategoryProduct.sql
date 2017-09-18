@@ -28,4 +28,4 @@ WITH (SYSTEM_VERSIONING = ON(HISTORY_TABLE=[dbo].[CategoryProduct_HISTORY], DATA
 
 GO
 
-CREATE COLUMNSTORE INDEX [CStoreIX_CategoryProduct] ON [dbo].[CategoryProduct] ([CategoryId], [ProductId], [IsDeleted])
+CREATE NONCLUSTERED INDEX [IX_CategoryProduct] ON [dbo].[CategoryProduct] ([CategoryId], [ProductId], [IsDeleted])

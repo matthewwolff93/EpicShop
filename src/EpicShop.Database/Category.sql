@@ -28,4 +28,4 @@ WITH (SYSTEM_VERSIONING = ON(HISTORY_TABLE=[dbo].[Category_HISTORY], DATA_CONSIS
 
 GO
 
-CREATE COLUMNSTORE INDEX [CStoreIX_Category] ON [dbo].[Category] ([ParentId], [ShopId], [IsDeleted])
+CREATE NONCLUSTERED INDEX [IX_Category] ON [dbo].[Category] ([ParentId], [ShopId], [IsDeleted])
