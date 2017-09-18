@@ -28,4 +28,4 @@ CREATE NONCLUSTERED INDEX [IX_Shop] ON [dbo].[Shop] ([OwnerEmail])
 
 GO
 
-CREATE UNIQUE INDEX [IX_Shop_UNIQUE] ON [dbo].[Shop] ([Name],[IsDeleted])
+CREATE UNIQUE INDEX [IX_Shop_UNIQUE] ON [dbo].[Shop] ([Id],[Name],[IsDeleted])
