@@ -6,12 +6,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EpicShop.IntegrationTests
 {
+
     [TestClass]
     public class ProductIntegrationTest
     {
         [TestMethod]
         public void CreateAndUpdateTestMethod()
         {
+
             var builder = new DbContextOptionsBuilder<EpicShopContext>();
             builder.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop");
 

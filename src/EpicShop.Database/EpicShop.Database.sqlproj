@@ -60,6 +60,10 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Products.sql" />
+    <Build Include="Product.sql" />
+    <Build Include="Category.sql" />
+    <Build Include="Brand.sql" />
+    <Build Include="Shop.sql" />
+    <Build Include="CategoryProduct.sql" />
   </ItemGroup>
 </Project>
