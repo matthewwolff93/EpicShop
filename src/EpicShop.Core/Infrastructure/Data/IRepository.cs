@@ -11,6 +11,5 @@ namespace EpicShop.Core.Infrastructure.Data
         IEnumerable<T> FindAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
         void Update(T entity);
-        void Delete(T entity);
     }
 }

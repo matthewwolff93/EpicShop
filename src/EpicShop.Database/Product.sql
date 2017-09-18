@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [dbo].[Product]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	[BrandId] INT NOT NULL,
 	[ShopId] INT NOT NULL,
 	
 	[Name] NVARCHAR(150) NOT NULL,
@@ -17,7 +16,15 @@
 
 	--temporal table properties
 	[SysStart] DATETIME2 (7) GENERATED ALWAYS AS ROW START NOT NULL,
-	[SysEnd] DATETIME2 (7) GENERATED ALWAYS AS ROW END NOT NULL,
-	PERIOD FOR SYSTEM_TIME ([SysStart], [SysEnd])
+	[SysEnd] DATETIME2 (7) GENERATED ALWAYS AS ROW END NOT NULL, 
+	PERIOD FOR SYSTEM_TIME ([SysStart], [SysEnd]),
+
+	--column constraints
+    CONSTRAINT [FK_Product_Shop] FOREIGN KEY ([ShopId]) REFERENCES [Shop]([Id])
+
 )
 WITH (SYSTEM_VERSIONING = ON(HISTORY_TABLE=[dbo].[Products_HISTORY], DATA_CONSISTENCY_CHECK=ON))
+
+GO
+
+CREATE COLUMNSTORE INDEX [CStoreIX_Product] ON [dbo].[Product] ([ShopId], [IsDeleted])

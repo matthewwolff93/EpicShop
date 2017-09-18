@@ -6,6 +6,9 @@ namespace EpicShop.Core.Modules.Product.Models
     public class ProductModel : BaseModel
     {
         [Required]
+        public int ShopId { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]

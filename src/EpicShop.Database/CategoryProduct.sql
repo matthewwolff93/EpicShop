@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[CategoryProduct]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[Id] INT NOT NULL IDENTITY,
 	[CategoryId] INT NOT NULL,
 	[ProductId] INT NOT NULL,
 
@@ -15,6 +15,17 @@
 	--temporal table properties
 	[SysStart] DATETIME2 (7) GENERATED ALWAYS AS ROW START NOT NULL,
 	[SysEnd] DATETIME2 (7) GENERATED ALWAYS AS ROW END NOT NULL,
-	PERIOD FOR SYSTEM_TIME ([SysStart], [SysEnd])
+	PERIOD FOR SYSTEM_TIME ([SysStart], [SysEnd]),
+
+	--composite primary key
+	PRIMARY KEY (Id, CategoryId,ProductId),
+
+	--column constraints
+    CONSTRAINT [FK_CategoryProduct_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category]([Id]),
+    CONSTRAINT [FK_CategoryProduct_Product] FOREIGN KEY ([ProductId]) REFERENCES [Product]([Id])
 )
 WITH (SYSTEM_VERSIONING = ON(HISTORY_TABLE=[dbo].[CategoryProduct_HISTORY], DATA_CONSISTENCY_CHECK=ON))
+
+GO
+
+CREATE COLUMNSTORE INDEX [CStoreIX_CategoryProduct] ON [dbo].[CategoryProduct] ([CategoryId], [ProductId], [IsDeleted])

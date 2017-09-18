@@ -1,3 +1,4 @@
+using System;
 using EpicShop.Core.Infrastructure.Data;
 using EpicShop.Core.Modules.Product.Models;
 using EpicShop.Core.Modules.Product.Services;
@@ -11,7 +12,7 @@ namespace EpicShop.IntegrationTests
     public class ProductIntegrationTest
     {
         [TestMethod]
-        public void CreateAndUpdateTestMethod()
+        public void CreateUpdateAndDelete()
         {
 
             var builder = new DbContextOptionsBuilder<EpicShopContext>();
@@ -21,6 +22,7 @@ namespace EpicShop.IntegrationTests
 
             var repository = new BaseRepository<ProductModel>(context);
             var service = new ProductService(repository);
+
 
 
             var product = new ProductModel
@@ -47,7 +49,9 @@ namespace EpicShop.IntegrationTests
             Assert.IsNotNull(updatedProduct);
             Assert.AreEqual(updatedProduct.Description,currentProduct.Description);
 
+            service.Delete(updatedProduct);
 
+            Assert.ThrowsException<Exception>(() => service.FindById(updatedProduct.Id));
         }
     }
 }
