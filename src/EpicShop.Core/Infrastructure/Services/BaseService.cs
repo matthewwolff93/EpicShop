@@ -6,11 +6,11 @@ using EpicShop.Core.Infrastructure.Exceptions;
 
 namespace EpicShop.Core.Infrastructure.Services
 {
-    public class BaseService<T> : IBaseService<T> where T : BaseModel
+    public class BaseService<T> where T : BaseModel
     {
-        private readonly IRepository<T> _repository;
+        private readonly BaseRepository<T> _repository;
 
-        public BaseService(IRepository<T> repository)
+        public BaseService(BaseRepository<T> repository)
         {
             _repository = repository;
         }

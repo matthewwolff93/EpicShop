@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EpicShop.Core.Infrastructure.Data
 {
-    public class BaseRepository<T> : IRepository<T> where T : BaseModel
-    {
+    public class BaseRepository<T> where T : BaseModel{
         private readonly EpicShopContext _epicShopContext;
 
         public BaseRepository(EpicShopContext epicShopContext)

@@ -4,9 +4,9 @@ using EpicShop.Core.Modules.Shop.Models;
 
 namespace EpicShop.Core.Modules.Shop.Services
 {
-    public class ShopService : BaseService<ShopModel>, IShopService
+    public class ShopService : BaseService<ShopModel>
     {
-        public ShopService(IRepository<ShopModel> repository) : base(repository)
+        public ShopService(BaseRepository<ShopModel> repository) : base(repository)
         {
 
         }
