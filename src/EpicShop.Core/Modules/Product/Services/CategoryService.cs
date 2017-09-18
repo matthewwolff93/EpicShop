@@ -4,9 +4,9 @@ using EpicShop.Core.Modules.Product.Models;
 
 namespace EpicShop.Core.Modules.Product.Services
 {
-    public class ProductService : BaseService<ProductModel>, IProductService
+    public class CategoryService : BaseService<CategoryModel>, ICategoryService
     {
-        public ProductService(IRepository<ProductModel> repository) : base(repository)
+        public CategoryService(IRepository<CategoryModel> repository) : base(repository)
         {
 
         }
