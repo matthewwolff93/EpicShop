@@ -2,10 +2,10 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
 	
-	[Name] NVARCHAR(50) NOT NULL UNIQUE,
+	[Name] NVARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(200) NOT NULL,
 	[OwnerName] NVARCHAR(100) NOT NULL,
-	[OwnerEmail] NVARCHAR(100) NOT NULL UNIQUE,
+	[OwnerEmail] NVARCHAR(100) NOT NULL,
 
 	--metadata properties
 	[CreatedDateTime] DATETIME2 NOT NULL,
@@ -24,4 +24,8 @@ WITH (SYSTEM_VERSIONING = ON(HISTORY_TABLE=[dbo].[Shop_HISTORY], DATA_CONSISTENC
 
 GO
 
-CREATE NONCLUSTERED INDEX [IX_Shop_Column] ON [dbo].[Shop] ([OwnerEmail])
+CREATE NONCLUSTERED INDEX [IX_Shop] ON [dbo].[Shop] ([OwnerEmail])
+
+GO
+
+CREATE UNIQUE INDEX [IX_Shop_UNIQUE] ON [dbo].[Shop] ([Name],[IsDeleted])
