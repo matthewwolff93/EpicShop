@@ -5,6 +5,7 @@ Project intro for Epic shop
 
 
 ## Database Schema
+![EpicShop database design](/docs/images/20170918_101535079_iOS.jpg)
 
 ## Contributing
 
