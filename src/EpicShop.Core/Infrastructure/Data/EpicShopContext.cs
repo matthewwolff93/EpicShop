@@ -1,6 +1,6 @@
 ﻿using EpicShop.Core.Infrastructure.Extensions;
+using EpicShop.Core.Modules.Category.Models;
 using EpicShop.Core.Modules.Product.Models;
-using EpicShop.Core.Modules.Shop;
 using EpicShop.Core.Modules.Shop.Models;
 using Microsoft.EntityFrameworkCore;
 

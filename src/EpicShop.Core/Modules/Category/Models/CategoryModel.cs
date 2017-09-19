@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using EpicShop.Core.Infrastructure.Data;
 
-namespace EpicShop.Core.Modules.Product.Models
+namespace EpicShop.Core.Modules.Category.Models
 {
     public class CategoryModel : BaseModel
     {
