@@ -8,11 +8,11 @@ namespace EpicShop.Core.Infrastructure.Services
 {
     public class BaseService<T> where T : BaseModel
     {
-        private readonly BaseRepository<T> _repository;
+        protected readonly BaseRepository<T> Repository;
 
         public BaseService(BaseRepository<T> repository)
         {
-            _repository = repository;
+            Repository = repository;
         }
 
         /// <summary>
@@ -20,9 +20,9 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public T FindById(int id)
+        public virtual T FindById(int id)
         {
-            T result = _repository.FindById(id);
+            T result = Repository.FindById(id);
 
             if (result == null)
             {
@@ -36,9 +36,9 @@ namespace EpicShop.Core.Infrastructure.Services
         /// Find all entities
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<T> FindAll()
+        public virtual IEnumerable<T> FindAll()
         {
-            return _repository.FindAll();
+            return Repository.FindAll();
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return _repository.Find(predicate);
+            return Repository.Find(predicate);
         }
 
         /// <summary>
@@ -56,31 +56,31 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public T Add(T entity)
+        public virtual T Add(T entity)
         {
-            return _repository.Add(entity);
+            return Repository.Add(entity);
         }
 
         /// <summary>
         /// Find an entity by Id and update
         /// </summary>
         /// <param name="entity"></param>
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             //Ensure that entity exist in the database before updating
             FindById(entity.Id);
-            _repository.Update(entity);
+            Repository.Update(entity);
         }
 
         /// <summary>
         /// Find an entity by Id and soft delete
         /// </summary>
         /// <param name="entity"></param>
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             var entityToDelete = FindById(entity.Id);
             entityToDelete.IsDeleted = true;
-            _repository.Update(entity);
+            Repository.Update(entity);
         }
     }
 }
