@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [dbo].[Category]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	[ParentId] INT NULL,
 	[ShopId] INT NOT NULL,
 
 	[Name] NVARCHAR(50) NOT NULL,
@@ -22,11 +21,10 @@
 	PERIOD FOR SYSTEM_TIME ([SysStart], [SysEnd]),
 
 	--column constraints
-    CONSTRAINT [FK_Category_Category] FOREIGN KEY ([ParentId]) REFERENCES [Category]([Id]),
     CONSTRAINT [FK_Category_Shop] FOREIGN KEY ([ShopId]) REFERENCES [Shop]([Id])
 )
 WITH (SYSTEM_VERSIONING = ON(HISTORY_TABLE=[dbo].[Category_HISTORY], DATA_CONSISTENCY_CHECK=ON))
 
 GO
 
-CREATE NONCLUSTERED INDEX [IX_Category] ON [dbo].[Category] ([ParentId], [ShopId], [IsDeleted])
+CREATE NONCLUSTERED INDEX [IX_Category] ON [dbo].[Category] ([ShopId], [IsDeleted])

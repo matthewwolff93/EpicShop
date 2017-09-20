@@ -7,7 +7,6 @@ namespace EpicShop.Core.Modules.Category.Models
     {
         [Required]
         public int ShopId { get; set; }
-        public int? ParentId { get; set; }
 
         [Required]
         [MaxLength(50)]

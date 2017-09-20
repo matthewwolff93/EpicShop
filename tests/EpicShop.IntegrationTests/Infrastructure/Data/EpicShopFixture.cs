@@ -1,5 +1,6 @@
 ﻿using System;
 using EpicShop.Core.Infrastructure.Data;
+using EpicShop.Core.Modules.Category.Models;
 using EpicShop.Core.Modules.Category.Services;
 using EpicShop.Core.Modules.Product.Services;
 using EpicShop.Core.Modules.Shop.Models;
@@ -21,6 +22,7 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
                 .AddTransient<ProductService>()
                 .AddTransient<ShopService>()
                 .AddTransient<BaseRepository<ShopModel>>()
+                .AddTransient<BaseRepository<CategoryModel>>()
                 .AddDbContext<EpicShopContext>(options => options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop"))
                 .BuildServiceProvider();
         }
@@ -30,10 +32,19 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
         {
             return new ShopModel
             {
-                Name = "EpicShop"+DateTime.Now.Ticks,
+                Name = "EpicShop"+Guid.NewGuid(),
                 Description = "We are the next BABA",
-                OwnerName = "Ali" + DateTime.Now.Ticks,
+                OwnerName = "Ali" + Guid.NewGuid(),
                 OwnerEmail = "ali@gmail.com"
+            };
+        }
+
+        public CategoryModel NewCategory()
+        {
+            return new CategoryModel
+            {
+                Name = "EpicShop" + Guid.NewGuid(),
+                Description = "We are the next BABA",
             };
         }
 
