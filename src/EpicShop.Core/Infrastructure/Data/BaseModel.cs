@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EpicShop.Core.Infrastructure.Data
 {
@@ -8,6 +9,7 @@ namespace EpicShop.Core.Infrastructure.Data
     {
         [Key]
         [ReadOnly(true)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
 
@@ -15,6 +17,9 @@ namespace EpicShop.Core.Infrastructure.Data
         [Required]
         [ReadOnly(true)]
         public bool IsDeleted { get; set; }
+
+        [ReadOnly(true)]
+        public DateTime? DeletedDateTime { get; set; }
 
         [Required]
         [ReadOnly(true)]

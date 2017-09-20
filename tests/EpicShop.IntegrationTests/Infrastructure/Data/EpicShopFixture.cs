@@ -17,10 +17,10 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
         public EpicShopFixture()
         {
             ServiceProvider = new ServiceCollection()
-                .AddScoped<CategoryService>()
-                .AddScoped<ProductService>()
-                .AddScoped<ShopService>()
-                .AddScoped<BaseRepository<ShopModel>>()
+                .AddTransient<CategoryService>()
+                .AddTransient<ProductService>()
+                .AddTransient<ShopService>()
+                .AddTransient<BaseRepository<ShopModel>>()
                 .AddDbContext<EpicShopContext>(options => options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop"))
                 .BuildServiceProvider();
         }

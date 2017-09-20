@@ -10,6 +10,7 @@
 	--metadata properties
 	[CreatedDateTime] DATETIME2 NOT NULL,
 	[UpdatedDateTime] DATETIME2 NOT NULL,
+	[DeletedDateTime] DATETIME2 NULL,
 
 	[CreatedBy] NVARCHAR(30) NOT NULL,
 	[UpdatedBy] NVARCHAR(30) NOT NULL,
@@ -18,6 +19,7 @@
 	--temporal table properties
 	[SysStart] DATETIME2 (7) GENERATED ALWAYS AS ROW START NOT NULL,
 	[SysEnd] DATETIME2 (7) GENERATED ALWAYS AS ROW END NOT NULL, 
+    CONSTRAINT [CK_Shop_Column] CHECK (1 = 1), 
 	PERIOD FOR SYSTEM_TIME ([SysStart], [SysEnd])
 )
 WITH (SYSTEM_VERSIONING = ON(HISTORY_TABLE=[dbo].[Shop_HISTORY], DATA_CONSISTENCY_CHECK=ON))
@@ -28,4 +30,4 @@ CREATE NONCLUSTERED INDEX [IX_Shop] ON [dbo].[Shop] ([OwnerEmail])
 
 GO
 
-CREATE UNIQUE INDEX [IX_Shop_UNIQUE] ON [dbo].[Shop] ([Id],[Name],[IsDeleted])
+CREATE UNIQUE INDEX [IX_Shop_UNIQUE] ON [dbo].[Shop] ([Name],[IsDeleted],[DeletedDateTime])

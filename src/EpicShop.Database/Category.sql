@@ -10,6 +10,7 @@
 	--metadata properties
 	[CreatedDateTime] DATETIME2 NOT NULL,
 	[UpdatedDateTime] DATETIME2 NOT NULL,
+	[DeletedDateTime] DATETIME2 NULL,
 
 	[CreatedBy] NVARCHAR(30) NOT NULL,
 	[UpdatedBy] NVARCHAR(30) NOT NULL,

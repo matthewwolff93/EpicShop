@@ -86,11 +86,12 @@ namespace EpicShop.IntegrationTests.Modules.Shop
 
             try
             {
-                _shopService.Add(newShop);
-
+                _shopService.Add(newShopTwo);
+                Assert.True(false,"Adding a shop with the same name is not allowed");
             }
-            catch (Exception exception)
+            catch (Exception)
             {
+                Assert.True(true, "Adding a shop with the same name was not allowed");
             }
 
         }
