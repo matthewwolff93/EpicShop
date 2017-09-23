@@ -80,6 +80,7 @@ namespace EpicShop.Core.Infrastructure.Services
         {
             var entityToDelete = FindById(entity.Id);
             entityToDelete.IsDeleted = true;
+            entityToDelete.DeletedDateTime = DateTime.UtcNow;
             Repository.Update(entity);
         }
     }
