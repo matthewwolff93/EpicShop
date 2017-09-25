@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{84354C38-91DB-4436-94C9-CF151FAE21A5}"
 EndProject
@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicShop.Core", "src\EpicSh
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EpicShop.Database", "src\EpicShop.Database\EpicShop.Database.sqlproj", "{E65DF9FE-1F6F-4921-9A83-E6C5DA665D4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicShop.UnitTests", "tests\EpicShop.UnitTests\EpicShop.UnitTests.csproj", "{B123EB3B-95CF-4633-A026-C1AFCAC27E8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicShop.UnitTests", "tests\EpicShop.UnitTests\EpicShop.UnitTests.csproj", "{B123EB3B-95CF-4633-A026-C1AFCAC27E8A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicShop.IntegrationTests", "tests\EpicShop.IntegrationTests\EpicShop.IntegrationTests.csproj", "{A487DEA2-BD14-4D91-8C22-5ECDFBDD82F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicShop.API", "src\EpicShop.API\EpicShop.API.csproj", "{3CA5399F-FD85-485C-B6D6-5A34A1048E03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A487DEA2-BD14-4D91-8C22-5ECDFBDD82F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A487DEA2-BD14-4D91-8C22-5ECDFBDD82F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A487DEA2-BD14-4D91-8C22-5ECDFBDD82F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CA5399F-FD85-485C-B6D6-5A34A1048E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CA5399F-FD85-485C-B6D6-5A34A1048E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CA5399F-FD85-485C-B6D6-5A34A1048E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CA5399F-FD85-485C-B6D6-5A34A1048E03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{E65DF9FE-1F6F-4921-9A83-E6C5DA665D4E} = {84354C38-91DB-4436-94C9-CF151FAE21A5}
 		{B123EB3B-95CF-4633-A026-C1AFCAC27E8A} = {6DD6D768-F3AA-49DE-A814-CB58DE1D855B}
 		{A487DEA2-BD14-4D91-8C22-5ECDFBDD82F5} = {6DD6D768-F3AA-49DE-A814-CB58DE1D855B}
+		{3CA5399F-FD85-485C-B6D6-5A34A1048E03} = {84354C38-91DB-4436-94C9-CF151FAE21A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83A098F0-7A2F-4104-A7AF-665B8CFAEA7D}
