@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using EpicShop.Core.Infrastructure.Data;
+using EpicShop.Core.Modules.Product.Models;
 
 namespace EpicShop.Core.Modules.Category.Models
 {
