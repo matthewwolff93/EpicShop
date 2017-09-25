@@ -42,7 +42,10 @@ namespace EpicShop.API
                 .AddScoped<BaseRepository<ShopModel>>()
                 .AddScoped<BaseRepository<CategoryModel>>()
                 .AddDbContext<EpicShopContext>(options =>
-                    options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop"));
+                    {
+                        options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop");
+                        options.EnableSensitiveDataLogging();
+                    });
 
 
             Mapper.AssertConfigurationIsValid();

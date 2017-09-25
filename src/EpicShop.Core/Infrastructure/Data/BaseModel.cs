@@ -1,15 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EpicShop.Core.Infrastructure.Data
 {
     public class BaseModel
     {
         [Key]
-        [ReadOnly(true)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
 

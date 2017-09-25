@@ -12,10 +12,10 @@ namespace EpicShop.Core.Modules.Category.Services
 
         }
 
-        public IEnumerable<CategoryModel> FindAllByShopId(int shopId)
-        {
-            //TODO: how to move deleted flag to base
-            return Find(x=> x.ShopId == shopId && !x.IsDeleted);
-        }
+        //public IEnumerable<CategoryViewModel> FindAllByShopId(int shopId)
+        //{
+        //    //TODO: how to move deleted flag to base
+        //    return Find(x=> x.ShopId == shopId && !x.IsDeleted);
+        //}
     }
 }

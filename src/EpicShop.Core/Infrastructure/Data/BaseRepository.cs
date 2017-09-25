@@ -22,7 +22,8 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public T FindById(int id)
         {
-            return _epicShopContext.Set<T>().SingleOrDefault(x => x.Id == id && !x.IsDeleted);
+            T model = _epicShopContext.Set<T>().SingleOrDefault(x => x.Id == id && !x.IsDeleted);
+            return model;
         }
 
         /// <summary>
@@ -31,7 +32,8 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public IEnumerable<T> FindAll()
         {
-            return _epicShopContext.Set<T>().Where(x=> !x.IsDeleted).ToList();
+            IEnumerable<T> model = _epicShopContext.Set<T>().Where(x=> !x.IsDeleted).ToList();
+            return model;
         }
 
         /// <summary>
@@ -42,7 +44,8 @@ namespace EpicShop.Core.Infrastructure.Data
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
             //TODO:how to ensure that IS Deleted is applied to this predicate
-            return _epicShopContext.Set<T>().Where(predicate);
+            IEnumerable<T> models = _epicShopContext.Set<T>().Where(predicate);
+            return models;
         }
 
         /// <summary>
@@ -63,8 +66,19 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <param name="entity"></param>
         public void Update(T entity)
         {
+            var tt = Exists(entity);
+            //if (!Exists(entity))
+            //{
+            //    
+            //}
+            //_epicShopContext.Attach(entity);
             _epicShopContext.Entry(entity).State = EntityState.Modified;
             _epicShopContext.SaveChanges();
+        }
+
+        public bool Exists(T entity)
+        {
+            return _epicShopContext.Set<T>().Local.Any(e => e.Id == entity.Id);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using AutoMapper;
 using EpicShop.Core.Infrastructure.Data;
 using EpicShop.Core.Infrastructure.Exceptions;
+using EpicShop.Core.Infrastructure.Extensions;
 
 namespace EpicShop.Core.Infrastructure.Services
 {
@@ -21,7 +21,7 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual TModel FindById(int id)
+        public virtual TViewModel FindById(int id)
         {
             TModel model = Repository.FindById(id);
 
@@ -30,17 +30,17 @@ namespace EpicShop.Core.Infrastructure.Services
                 throw new EntityNotFoundExceptions();
             }
 
-            return model;
+            return model.ToViewModel<TViewModel>();
         }
 
         /// <summary>
         /// Find all entities
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerable<TModel> FindAll()
+        public virtual IEnumerable<TViewModel> FindAll()
         {
             IEnumerable<TModel> models = Repository.FindAll();
-            return models;
+            return models.ToViewModel<TViewModel>();
         }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual IEnumerable<TModel> Find(Expression<Func<TModel, bool>> predicate)
+        public virtual IEnumerable<TViewModel> Find(Expression<Func<TModel, bool>> predicate)
         {
             IEnumerable<TModel> models = Repository.Find(predicate);
-            return models;
+            return models.ToViewModel<TViewModel>();
         }
 
         /// <summary>
@@ -59,12 +59,12 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        public virtual TModel Add(TViewModel viewModel)
+        public virtual TViewModel Add(TViewModel viewModel)
         {
-            TModel model = Mapper.Map<TViewModel, TModel>(viewModel);
+            TModel model = viewModel.ToModel<TModel>();
             Repository.Add(model);
 
-            return model;
+            return model.ToViewModel<TViewModel>();
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace EpicShop.Core.Infrastructure.Services
             //Ensure that entity exist in the database before updating
             FindById(id);
 
-            TModel model = Mapper.Map<TViewModel, TModel>(viewModel);
+            TModel model = viewModel.ToModel<TModel>();
             Repository.Update(model);
         }
 
@@ -87,7 +87,7 @@ namespace EpicShop.Core.Infrastructure.Services
         /// <param name="id"></param>
         public virtual void Delete(int id)
         {
-            var entityToDelete = FindById(id);
+            var entityToDelete = FindById(id).ToModel<TModel>();
             entityToDelete.IsDeleted = true;
             entityToDelete.DeletedDateTime = DateTime.UtcNow;
             Repository.Update(entityToDelete);
