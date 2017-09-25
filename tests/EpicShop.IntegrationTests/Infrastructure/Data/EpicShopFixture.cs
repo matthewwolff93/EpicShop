@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using EpicShop.Core.Infrastructure.Data;
 using EpicShop.Core.Modules.Category.Models;
 using EpicShop.Core.Modules.Category.Services;
@@ -23,14 +24,15 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
                 .AddScoped<ShopService>()
                 .AddScoped<BaseRepository<ShopModel>>()
                 .AddScoped<BaseRepository<CategoryModel>>()
+            .AddAutoMapper(typeof(EpicShopFixture))
                 .AddDbContext<EpicShopContext>(options => options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop"))
                 .BuildServiceProvider();
         }
 
 
-        public ShopModel NewShop()
+        public ShopViewModel NewShop()
         {
-            return new ShopModel
+            return new ShopViewModel
             {
                 Name = "EpicShop"+Guid.NewGuid(),
                 Description = "We are the next BABA",
@@ -39,10 +41,11 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
             };
         }
 
-        public CategoryModel NewCategory()
+        public CategoryViewModel NewCategory(int shopId)
         {
-            return new CategoryModel
+            return new CategoryViewModel
             {
+                ShopId = shopId,
                 Name = "EpicShop" + Guid.NewGuid(),
                 Description = "We are the next BABA",
             };

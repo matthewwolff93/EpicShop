@@ -4,7 +4,7 @@ using EpicShop.Core.Modules.Shop.Models;
 
 namespace EpicShop.Core.Modules.Shop.Services
 {
-    public class ShopService : BaseService<ShopModel>
+    public class ShopService : BaseService<ShopModel,ShopViewModel>
     {
         public ShopService(BaseRepository<ShopModel> repository) : base(repository)
         {

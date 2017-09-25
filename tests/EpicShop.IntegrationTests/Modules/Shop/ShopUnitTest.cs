@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using EpicShop.Core.Infrastructure.Exceptions;
 using EpicShop.Core.Modules.Shop.Models;
 using EpicShop.Core.Modules.Shop.Services;
@@ -22,17 +23,14 @@ namespace EpicShop.IntegrationTests.Modules.Shop
         [Fact]
         public void ShouldCreateNewShop()
         {
-            var newShop = _epicShopFixture.NewShop();
-
-            _shopService.Add(newShop);
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
             Assert.True(newShop.Id > 0);
         }
 
         [Fact]
         public void ShouldFindNewShop()
         {
-            var newShop = _epicShopFixture.NewShop();
-            _shopService.Add(newShop);
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
             Assert.True(newShop.Id > 0);
 
             var findShop = _shopService.FindById(newShop.Id);
@@ -43,11 +41,12 @@ namespace EpicShop.IntegrationTests.Modules.Shop
         [Fact]
         public void ShouldUpdateNewShop()
         {
-            var newShop = _epicShopFixture.NewShop();
-            _shopService.Add(newShop);
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
             var findShop = _shopService.FindById(newShop.Id);
             findShop.Description = "abc";
-            _shopService.Update(findShop);
+
+            var findShopViewModel = Mapper.Map<ShopModel, ShopViewModel>(findShop);
+            _shopService.Update(findShopViewModel,findShop.Id);
 
             var updated = _shopService.FindById(findShop.Id);
             Assert.Equal(updated,findShop);
@@ -56,9 +55,8 @@ namespace EpicShop.IntegrationTests.Modules.Shop
         [Fact]
         public void ShouldDeleteNewShop()
         {
-            var newShop = _epicShopFixture.NewShop();
-            _shopService.Add(newShop);
-            _shopService.Delete(newShop);
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
+            _shopService.Delete(newShop.Id);
 
             ShopModel deletedShop = null;
 

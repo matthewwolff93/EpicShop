@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using AutoMapper;
 using EpicShop.Core.Infrastructure.Data;
 using EpicShop.Core.Infrastructure.Exceptions;
 
 namespace EpicShop.Core.Infrastructure.Services
 {
-    public class BaseService<T> where T : BaseModel
+    public class BaseService<TModel,TViewModel> where TModel : BaseModel where TViewModel : BaseViewModel
     {
-        protected readonly BaseRepository<T> Repository;
+        protected readonly BaseRepository<TModel> Repository;
 
-        public BaseService(BaseRepository<T> repository)
+        public BaseService(BaseRepository<TModel> repository)
         {
             Repository = repository;
         }
@@ -20,25 +21,26 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual T FindById(int id)
+        public virtual TModel FindById(int id)
         {
-            T result = Repository.FindById(id);
+            TModel model = Repository.FindById(id);
 
-            if (result == null)
+            if (model == null)
             {
                 throw new EntityNotFoundExceptions();
             }
 
-            return result;
+            return model;
         }
 
         /// <summary>
         /// Find all entities
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerable<T> FindAll()
+        public virtual IEnumerable<TModel> FindAll()
         {
-            return Repository.FindAll();
+            IEnumerable<TModel> models = Repository.FindAll();
+            return models;
         }
 
         /// <summary>
@@ -46,42 +48,49 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<TModel> Find(Expression<Func<TModel, bool>> predicate)
         {
-            return Repository.Find(predicate);
+            IEnumerable<TModel> models = Repository.Find(predicate);
+            return models;
         }
 
         /// <summary>
         /// Add a new entity
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="viewModel"></param>
         /// <returns></returns>
-        public virtual T Add(T entity)
+        public virtual TModel Add(TViewModel viewModel)
         {
-            return Repository.Add(entity);
+            TModel model = Mapper.Map<TViewModel, TModel>(viewModel);
+            Repository.Add(model);
+
+            return model;
         }
 
         /// <summary>
         /// Find an entity by Id and update
         /// </summary>
-        /// <param name="entity"></param>
-        public virtual void Update(T entity)
+        /// <param name="viewModel"></param>
+        /// <param name="id"></param>
+        public virtual void Update(TViewModel viewModel, int id)
         {
             //Ensure that entity exist in the database before updating
-            FindById(entity.Id);
-            Repository.Update(entity);
+            FindById(id);
+
+            TModel model = Mapper.Map<TViewModel, TModel>(viewModel);
+            Repository.Update(model);
         }
 
         /// <summary>
         /// Find an entity by Id and soft delete
         /// </summary>
-        /// <param name="entity"></param>
-        public virtual void Delete(T entity)
+        /// <param name="id"></param>
+        public virtual void Delete(int id)
         {
-            var entityToDelete = FindById(entity.Id);
+            var entityToDelete = FindById(id);
             entityToDelete.IsDeleted = true;
             entityToDelete.DeletedDateTime = DateTime.UtcNow;
-            Repository.Update(entity);
+            Repository.Update(entityToDelete);
         }
     }
 }

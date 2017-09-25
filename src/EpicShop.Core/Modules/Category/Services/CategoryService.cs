@@ -5,7 +5,7 @@ using EpicShop.Core.Modules.Category.Models;
 
 namespace EpicShop.Core.Modules.Category.Services
 {
-    public class CategoryService : BaseService<CategoryModel>
+    public class CategoryService : BaseService<CategoryModel,CategoryViewModel>
     {
         public CategoryService(BaseRepository<CategoryModel> repository) : base(repository)
         {

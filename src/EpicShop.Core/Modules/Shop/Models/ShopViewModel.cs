@@ -1,9 +1,7 @@
 ﻿using EpicShop.Core.Infrastructure.Data;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EpicShop.Core.Modules.Shop.Models
 {
-    [ModelMetadataType(typeof(ShopModel))]
     public class ShopViewModel : BaseViewModel
     {
         public string Name { get; set; }

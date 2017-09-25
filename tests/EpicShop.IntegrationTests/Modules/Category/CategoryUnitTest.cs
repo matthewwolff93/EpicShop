@@ -1,3 +1,4 @@
+using AutoMapper;
 using EpicShop.Core.Infrastructure.Exceptions;
 using EpicShop.Core.Modules.Category.Models;
 using EpicShop.Core.Modules.Category.Services;
@@ -25,11 +26,8 @@ namespace EpicShop.IntegrationTests.Modules.Category
         [Fact]
         public void ShouldCreateNewCategory()
         {
-            var newShop = _epicShopFixture.NewShop();
-            _shopService.Add(newShop);
-
-            var newCategory = _epicShopFixture.NewCategory();
-            newCategory.ShopId = newShop.Id;
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
+            var newCategory = _epicShopFixture.NewCategory(newShop.Id);
 
             _categoryService.Add(newCategory);
             Assert.True(newShop.Id > 0);
@@ -38,13 +36,9 @@ namespace EpicShop.IntegrationTests.Modules.Category
         [Fact]
         public void ShouldFindNewCategory()
         {
-            var newShop = _epicShopFixture.NewShop();
-            _shopService.Add(newShop);
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
 
-            var newCategory = _epicShopFixture.NewCategory();
-            newCategory.ShopId = newShop.Id;
-
-            _categoryService.Add(newCategory);
+            var newCategory = _categoryService.Add(_epicShopFixture.NewCategory(newShop.Id));
             Assert.True(newCategory.Id > 0);
 
             var findCategory = _categoryService.FindById(newCategory.Id);
@@ -55,17 +49,16 @@ namespace EpicShop.IntegrationTests.Modules.Category
         [Fact]
         public void ShouldUpdateNewCategory()
         {
-            var newShop = _epicShopFixture.NewShop();
-            _shopService.Add(newShop);
+            var newShop =_shopService.Add(_epicShopFixture.NewShop());
 
-            var newCategory = _epicShopFixture.NewCategory();
-            newCategory.ShopId = newShop.Id;
-            _categoryService.Add(newCategory);
+            var newCategory = _categoryService.Add(_epicShopFixture.NewCategory(newShop.Id));
             Assert.True(newCategory.Id > 0);
 
             var findCategory = _categoryService.FindById(newCategory.Id);
             findCategory.Description = "abc";
-            _categoryService.Update(findCategory);
+
+            var findCategoryViewModel = Mapper.Map<CategoryModel, CategoryViewModel>(findCategory);
+            _categoryService.Update(findCategoryViewModel,findCategory.Id);
 
             var updated = _categoryService.FindById(findCategory.Id);
             Assert.Equal(updated, findCategory);
@@ -74,12 +67,9 @@ namespace EpicShop.IntegrationTests.Modules.Category
         [Fact]
         public void ShouldDeleteNewShop()
         {
-            var newShop = _epicShopFixture.NewShop();
-            _shopService.Add(newShop);
-            var newCategory = _epicShopFixture.NewCategory();
-            newCategory.ShopId = newShop.Id;
-            _categoryService.Add(newCategory);
-            _categoryService.Delete(newCategory);
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
+            var newCategory = _categoryService.Add(_epicShopFixture.NewCategory(newShop.Id));
+            _categoryService.Delete(newCategory.Id);
 
             CategoryModel categoryModel = null;
 
