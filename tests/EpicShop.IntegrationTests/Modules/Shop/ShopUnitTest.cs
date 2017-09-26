@@ -1,4 +1,5 @@
 using EpicShop.Core.Infrastructure.Exceptions;
+using EpicShop.Core.Modules.Shop.Models;
 using EpicShop.Core.Modules.Shop.Services;
 using EpicShop.IntegrationTests.Infrastructure.Data;
 using Xunit;
@@ -53,16 +54,16 @@ namespace EpicShop.IntegrationTests.Modules.Shop
             var newShop = _shopService.Add(_epicShopFixture.NewShop());
             _shopService.Delete(newShop.Id);
 
-            //var deletedShop;
+            ShopOutputViewModel deletedShop = null;
 
             try
             {
-                //deletedShop = _shopService.FindById(newShop.Id);
+                deletedShop = _shopService.FindById(newShop.Id);
                 Assert.True(false,"The should should have been deleted");
             }
             catch (EntityNotFoundExceptions)
             {
-                //Assert.Null(deletedShop);
+                Assert.Null(deletedShop);
             }
 
         }
