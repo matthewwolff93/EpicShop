@@ -1,7 +1,4 @@
-using System;
-using AutoMapper;
 using EpicShop.Core.Infrastructure.Exceptions;
-using EpicShop.Core.Modules.Shop.Models;
 using EpicShop.Core.Modules.Shop.Services;
 using EpicShop.IntegrationTests.Infrastructure.Data;
 using Xunit;
@@ -41,15 +38,14 @@ namespace EpicShop.IntegrationTests.Modules.Shop
         [Fact]
         public void ShouldUpdateNewShop()
         {
-            var newShop = _shopService.Add(_epicShopFixture.NewShop());
-            var findShop = _shopService.FindById(newShop.Id);
-            findShop.Description = "abc";
+            //var newShop = _shopService.Add(_epicShopFixture.NewShop());
+            var findShop = _shopService.FindById(1);
+            findShop.Description = "qweqweqweqwe222222222222";
 
-            //var findShopViewModel = Mapper.Map<ShopModel, ShopViewModel>(findShop);
             _shopService.Update(findShop, findShop.Id);
 
             var updated = _shopService.FindById(findShop.Id);
-            Assert.Equal(updated,findShop);
+            Assert.Equal(updated.Description,findShop.Description);
         }
 
         [Fact]

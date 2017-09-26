@@ -3,7 +3,7 @@ using EpicShop.Core.Infrastructure.Data;
 
 namespace EpicShop.Core.Modules.Shop.Models
 {
-    public class ShopViewModel : BaseViewModel
+    public class ShopInputViewModel : BaseViewModel
     {
         [Required]
         [MaxLength(50)]

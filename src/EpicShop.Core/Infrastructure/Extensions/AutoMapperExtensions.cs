@@ -6,14 +6,24 @@ namespace EpicShop.Core.Infrastructure.Extensions
 {
     public static class AutoMapperExtensions
     {
-        public static TViewModel ToViewModel<TViewModel>(this BaseModel model) where TViewModel : BaseViewModel
+        public static TViewModel ToViewModel<TViewModel>(this BaseModel source, TViewModel destination = null) where TViewModel : BaseViewModel
         {
-            return Mapper.Map<BaseModel, TViewModel>(model);
+            if (destination != null)
+            {
+                return Mapper.Map(source, destination);
+            }
+
+            return Mapper.Map<BaseModel, TViewModel>(source);
         }
 
-        public static TModel ToModel<TModel>(this BaseViewModel viewModel) where TModel : BaseModel
+        public static TModel ToModel<TModel>(this BaseViewModel source, TModel destination = null) where TModel : BaseModel
         {
-            return Mapper.Map<BaseViewModel, TModel>(viewModel);
+            if (destination != null)
+            {
+                return Mapper.Map(source, destination);
+            }
+
+            return Mapper.Map<BaseViewModel, TModel>(source);
         }
 
         public static IEnumerable<TViewModel> ToViewModel<TViewModel>(this IEnumerable<BaseModel> model) where TViewModel : BaseViewModel

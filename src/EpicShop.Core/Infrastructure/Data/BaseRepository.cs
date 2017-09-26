@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using EpicShop.Core.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EpicShop.Core.Infrastructure.Data
@@ -9,10 +10,12 @@ namespace EpicShop.Core.Infrastructure.Data
     public class BaseRepository<T> where T : BaseModel{
 
         private readonly EpicShopContext _epicShopContext;
+        private readonly DbSet<T> _entities;
 
         public BaseRepository(EpicShopContext epicShopContext)
         {
             _epicShopContext = epicShopContext;
+            _entities = _epicShopContext.Set<T>();
         }
 
         /// <summary>
@@ -22,7 +25,13 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public T FindById(int id)
         {
-            T model = _epicShopContext.Set<T>().SingleOrDefault(x => x.Id == id && !x.IsDeleted);
+            T model = _entities.AsNoTracking().SingleOrDefault(x => x.Id == id);
+
+            if (model == null)
+            {
+                throw new EntityNotFoundExceptions();
+            }
+
             return model;
         }
 
@@ -32,7 +41,7 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public IEnumerable<T> FindAll()
         {
-            IEnumerable<T> model = _epicShopContext.Set<T>().Where(x=> !x.IsDeleted).ToList();
+            IEnumerable<T> model = _entities.AsNoTracking().ToList();
             return model;
         }
 
@@ -43,8 +52,7 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            //TODO:how to ensure that IS Deleted is applied to this predicate
-            IEnumerable<T> models = _epicShopContext.Set<T>().Where(predicate);
+            IEnumerable<T> models = _entities.AsNoTracking().Where(predicate);
             return models;
         }
 
@@ -55,7 +63,7 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public T Add(T entity)
         {
-            _epicShopContext.Set<T>().Add(entity);
+            _entities.Add(entity);
             _epicShopContext.SaveChanges();
             return entity;
         }
@@ -70,9 +78,16 @@ namespace EpicShop.Core.Infrastructure.Data
             _epicShopContext.SaveChanges();
         }
 
-        public bool Exists(T entity)
+        /// <summary>
+        /// Find an entity by Id and soft delete
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteById(int id)
         {
-            return _epicShopContext.Set<T>().Local.Any(e => e.Id == entity.Id);
+            T currentModel = FindById(id);
+            currentModel.IsDeleted = true;
+            currentModel.DeletedDateTime = DateTime.UtcNow;
+            Update(currentModel);
         }
     }
 }

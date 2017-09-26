@@ -33,9 +33,9 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
         }
 
 
-        public ShopViewModel NewShop()
+        public ShopOutputViewModel NewShop()
         {
-            return new ShopViewModel
+            return new ShopOutputViewModel
             {
                 Name = "EpicShop"+Guid.NewGuid(),
                 Description = "We are the next BABA",

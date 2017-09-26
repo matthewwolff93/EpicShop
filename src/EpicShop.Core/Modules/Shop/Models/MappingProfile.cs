@@ -6,7 +6,8 @@ namespace EpicShop.Core.Modules.Shop.Models
     {
         public MappingProfile()
         {
-            CreateMap<ShopModel, ShopViewModel>().ReverseMap();
+            CreateMap<ShopModel, ShopOutputViewModel>().ReverseMap();
+            CreateMap<ShopModel, ShopInputViewModel>().ReverseMap();
         }
     }
 }

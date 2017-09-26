@@ -49,7 +49,7 @@
 //        [Fact]
 //        public void ShouldUpdateNewCategory()
 //        {
-//            var newShop =_shopService.Add(_epicShopFixture.NewShop());
+//            var newShop = _shopService.Add(_epicShopFixture.NewShop());
 
 //            var newCategory = _categoryService.Add(_epicShopFixture.NewCategory(newShop.Id));
 //            Assert.True(newCategory.Id > 0);
@@ -58,7 +58,7 @@
 //            findCategory.Description = "abc";
 
 //            var findCategoryViewModel = Mapper.Map<CategoryModel, CategoryViewModel>(findCategory);
-//            _categoryService.Update(findCategoryViewModel,findCategory.Id);
+//            _categoryService.Update(findCategoryViewModel, findCategory.Id);
 
 //            var updated = _categoryService.FindById(findCategory.Id);
 //            Assert.Equal(updated, findCategory);
@@ -76,7 +76,7 @@
 //            try
 //            {
 //                categoryModel = _categoryService.FindById(newCategory.Id);
-//                Assert.True(false,"The should have been deleted");
+//                Assert.True(false, "The should have been deleted");
 //            }
 //            catch (EntityNotFoundExceptions)
 //            {

@@ -17,6 +17,18 @@ namespace EpicShop.Core.Infrastructure.Data
         public DbSet<ProductModel> Product { get; set; }
         public DbSet<ShopModel> Shop { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ShopModel>()
+                .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<ProductModel>()
+                .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<CategoryModel>()
+                .HasQueryFilter(p => !p.IsDeleted);
+        }
+
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();

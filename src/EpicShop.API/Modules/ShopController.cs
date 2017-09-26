@@ -31,14 +31,14 @@ namespace EpicShop.API.Modules
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] ShopViewModel value)
+        public IActionResult Post([FromBody] ShopInputViewModel value)
         {
             var viewModel = _shopService.Add(value);
             return Accepted(viewModel.Id);
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]ShopViewModel value)
+        public void Put(int id, [FromBody]ShopInputViewModel value)
         {
             _shopService.Update(value, id);
         }

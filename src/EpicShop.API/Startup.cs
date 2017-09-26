@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EpicShop.Core.Infrastructure.Data;
+using EpicShop.Core.Infrastructure.Extensions;
 using EpicShop.Core.Modules.Category.Models;
 using EpicShop.Core.Modules.Category.Services;
 using EpicShop.Core.Modules.Product.Services;
@@ -33,20 +34,13 @@ namespace EpicShop.API
         {
             services.AddMvc();
 
-            //TODO: move all this to an extension
-            services.AddAutoMapper(typeof(BaseModel));
-            services
-                .AddScoped<CategoryService>()
-                .AddScoped<ProductService>()
-                .AddScoped<ShopService>()
-                .AddScoped<BaseRepository<ShopModel>>()
-                .AddScoped<BaseRepository<CategoryModel>>()
+            services.AddAutoMapper(typeof(BaseModel))
+                .AddDependencyInjection()
                 .AddDbContext<EpicShopContext>(options =>
-                    {
-                        options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop");
-                        options.EnableSensitiveDataLogging();
-                    });
-
+                {
+                    options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop");
+                    options.EnableSensitiveDataLogging();
+                });
 
             Mapper.AssertConfigurationIsValid();
         }
