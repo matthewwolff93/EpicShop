@@ -32,15 +32,14 @@ namespace EpicShop.IntegrationTests.Modules.Shop
 
             var findShop = _shopService.FindById(newShop.Id);
             Assert.NotNull(findShop);
-            Assert.Equal(findShop,newShop);
         }
 
         [Fact]
         public void ShouldUpdateNewShop()
         {
-            //var newShop = _shopService.Add(_epicShopFixture.NewShop());
-            var findShop = _shopService.FindById(1);
-            findShop.Description = "qweqweqweqwe222222222222";
+            var newShop = _shopService.Add(_epicShopFixture.NewShop());
+            var findShop = _shopService.FindById(newShop.Id);
+            findShop.Description = "I updated this";
 
             _shopService.Update(findShop, findShop.Id);
 
