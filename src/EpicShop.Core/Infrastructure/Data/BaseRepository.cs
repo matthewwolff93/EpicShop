@@ -25,7 +25,7 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public T FindById(int id)
         {
-            T model = _entities.AsNoTracking().SingleOrDefault(x => x.Id == id);
+            T model = _entities.SingleOrDefault(x => x.Id == id);
 
             if (model == null)
             {
@@ -41,7 +41,7 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public IEnumerable<T> FindAll()
         {
-            IEnumerable<T> model = _entities.AsNoTracking().ToList();
+            IEnumerable<T> model = _entities.ToList();
             return model;
         }
 
@@ -52,7 +52,7 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <returns></returns>
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            IEnumerable<T> models = _entities.AsNoTracking().Where(predicate);
+            IEnumerable<T> models = _entities.Where(predicate);
             return models;
         }
 
@@ -74,7 +74,6 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <param name="entity"></param>
         public void Update(T entity)
         {
-            _epicShopContext.Entry(entity).State = EntityState.Modified;
             _epicShopContext.SaveChanges();
         }
 
@@ -87,7 +86,12 @@ namespace EpicShop.Core.Infrastructure.Data
             T currentModel = FindById(id);
             currentModel.IsDeleted = true;
             currentModel.DeletedDateTime = DateTime.UtcNow;
-            Update(currentModel);
+            _epicShopContext.SaveChanges();
+        }
+
+        public T TrackingEntiry(int id)
+        {
+            return _entities.Local.FirstOrDefault(x => x.Id == id);
         }
     }
 }
