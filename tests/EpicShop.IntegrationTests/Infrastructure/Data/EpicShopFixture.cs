@@ -1,11 +1,9 @@
 ﻿using System;
 using AutoMapper;
 using EpicShop.Core.Infrastructure.Data;
+using EpicShop.Core.Infrastructure.Extensions;
 using EpicShop.Core.Modules.Category.Models;
-using EpicShop.Core.Modules.Category.Services;
-using EpicShop.Core.Modules.Product.Services;
 using EpicShop.Core.Modules.Shop.Models;
-using EpicShop.Core.Modules.Shop.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,17 +17,10 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
         public EpicShopFixture()
         {
             ServiceProvider = new ServiceCollection()
-                .AddScoped<CategoryService>()
-                .AddScoped<ProductService>()
-                .AddScoped<ShopService>()
-                .AddScoped<BaseRepository<ShopModel>>()
-                .AddScoped<BaseRepository<CategoryModel>>()
-            .AddAutoMapper(typeof(EpicShopFixture))
+                .ConfigureDependencyInjection()
+                .AddAutoMapper(typeof(BaseModel))
                 .AddDbContext<EpicShopContext>(options => options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop"))
-            .AddAutoMapper(typeof(BaseModel))
-                
                 .BuildServiceProvider();
-
         }
 
 

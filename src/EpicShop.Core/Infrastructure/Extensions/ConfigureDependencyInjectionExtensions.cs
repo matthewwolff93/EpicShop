@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EpicShop.Core.Infrastructure.Extensions
 {
-    public static class ConfigureDependencyInjection
+    public static class ConfigureDependencyInjectionExtensions
     {
-        public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
+        public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services)
         {
             // getting the list of all IModuleBootstrapper implementations
             var bootstrappers = AppDomain.CurrentDomain
