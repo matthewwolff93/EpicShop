@@ -66,12 +66,6 @@ namespace EpicShop.Core.Infrastructure.Data
         /// <param name="entity"></param>
         public void Update(T entity)
         {
-            var tt = Exists(entity);
-            //if (!Exists(entity))
-            //{
-            //    
-            //}
-            //_epicShopContext.Attach(entity);
             _epicShopContext.Entry(entity).State = EntityState.Modified;
             _epicShopContext.SaveChanges();
         }

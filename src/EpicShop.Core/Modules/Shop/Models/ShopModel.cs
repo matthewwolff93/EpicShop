@@ -1,7 +1,9 @@
-﻿using EpicShop.Core.Infrastructure.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using EpicShop.Core.Infrastructure.Data;
 
 namespace EpicShop.Core.Modules.Shop.Models
 {
+    [Table("Shop")]
     public class ShopModel : BaseModel
     {
         public string Name { get; set; }

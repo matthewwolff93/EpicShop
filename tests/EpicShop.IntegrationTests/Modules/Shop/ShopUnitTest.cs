@@ -45,8 +45,8 @@ namespace EpicShop.IntegrationTests.Modules.Shop
             var findShop = _shopService.FindById(newShop.Id);
             findShop.Description = "abc";
 
-            var findShopViewModel = Mapper.Map<ShopModel, ShopViewModel>(findShop);
-            _shopService.Update(findShopViewModel,findShop.Id);
+            //var findShopViewModel = Mapper.Map<ShopModel, ShopViewModel>(findShop);
+            _shopService.Update(findShop, findShop.Id);
 
             var updated = _shopService.FindById(findShop.Id);
             Assert.Equal(updated,findShop);
@@ -58,16 +58,16 @@ namespace EpicShop.IntegrationTests.Modules.Shop
             var newShop = _shopService.Add(_epicShopFixture.NewShop());
             _shopService.Delete(newShop.Id);
 
-            ShopModel deletedShop = null;
+            //var deletedShop;
 
             try
             {
-                deletedShop = _shopService.FindById(newShop.Id);
+                //deletedShop = _shopService.FindById(newShop.Id);
                 Assert.True(false,"The should should have been deleted");
             }
             catch (EntityNotFoundExceptions)
             {
-                Assert.Null(deletedShop);
+                //Assert.Null(deletedShop);
             }
 
         }

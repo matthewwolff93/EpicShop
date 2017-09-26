@@ -26,7 +26,10 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
                 .AddScoped<BaseRepository<CategoryModel>>()
             .AddAutoMapper(typeof(EpicShopFixture))
                 .AddDbContext<EpicShopContext>(options => options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop"))
+            .AddAutoMapper(typeof(BaseModel))
+                
                 .BuildServiceProvider();
+
         }
 
 
