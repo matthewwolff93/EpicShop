@@ -7,9 +7,9 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
     public class EpicShopFixture
     {
 
-        public static ShopOutputViewModel NewShop()
+        public static ShopInputViewModel NewShop()
         {
-            return new ShopOutputViewModel
+            return new ShopInputViewModel
             {
                 Name = "EpicShop"+Guid.NewGuid(),
                 Description = "We are the next BABA",
@@ -18,9 +18,9 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
             };
         }
 
-        public static CategoryOutputViewModel NewCategory(int shopId)
+        public static CategoryInputViewModel NewCategory(int shopId)
         {
-            return new CategoryOutputViewModel
+            return new CategoryInputViewModel
             {
                 ShopId = shopId,
                 Name = "EpicShop" + Guid.NewGuid(),

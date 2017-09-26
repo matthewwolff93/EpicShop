@@ -1,5 +1,6 @@
 using System;
 using EpicShop.Core.Infrastructure.Exceptions;
+using EpicShop.Core.Infrastructure.Extensions;
 using EpicShop.Core.Modules.Shop.Models;
 using EpicShop.Core.Modules.Shop.Services;
 using EpicShop.IntegrationTests.Infrastructure.Data;
@@ -42,7 +43,7 @@ namespace EpicShop.IntegrationTests.Modules.Shop
             var findShop = _shopService.FindById(newShop.Id);
             findShop.Description = "I updated this";
 
-            _shopService.Update(findShop, findShop.Id);
+            _shopService.Update(findShop.ToViewModel<ShopInputViewModel>(), findShop.Id);
 
             var updated = _shopService.FindById(findShop.Id);
             Assert.Equal(updated.Description,findShop.Description);
@@ -52,10 +53,10 @@ namespace EpicShop.IntegrationTests.Modules.Shop
         public void ShouldDeleteNewShop()
         {
             var newShop = _shopService.Add(EpicShopFixture.NewShop());
-            _shopService.Update(newShop,newShop.Id);
+            _shopService.Update(newShop.ToViewModel<ShopInputViewModel>(), newShop.Id);
             _shopService.Delete(newShop.Id);
 
-            ShopOutputViewModel deletedShop = null;
+            ShopModel deletedShop = null;
 
             try
             {

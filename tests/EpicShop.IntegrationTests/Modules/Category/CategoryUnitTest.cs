@@ -1,4 +1,5 @@
 using EpicShop.Core.Infrastructure.Exceptions;
+using EpicShop.Core.Infrastructure.Extensions;
 using EpicShop.Core.Modules.Category.Models;
 using EpicShop.Core.Modules.Category.Services;
 using EpicShop.Core.Modules.Shop.Services;
@@ -51,10 +52,10 @@ namespace EpicShop.IntegrationTests.Modules.Category
             var newCategory = _categoryService.Add(EpicShopFixture.NewCategory(newShop.Id));
             Assert.True(newCategory.Id > 0);
 
-            var findCategory = _categoryService.FindById(newCategory.Id);
+            CategoryModel findCategory = _categoryService.FindById(newCategory.Id);
             findCategory.Description = "abc";
 
-            _categoryService.Update(findCategory, findCategory.Id);
+            _categoryService.Update(findCategory.ToViewModel<CategoryInputViewModel>(), findCategory.Id);
 
             var updated = _categoryService.FindById(findCategory.Id);
             Assert.Equal(updated.Description, findCategory.Description);
@@ -67,7 +68,7 @@ namespace EpicShop.IntegrationTests.Modules.Category
             var newCategory = _categoryService.Add(EpicShopFixture.NewCategory(newShop.Id));
             _categoryService.Delete(newCategory.Id);
 
-            CategoryOutputViewModel categoryModel = null;
+            CategoryModel categoryModel = null;
 
             try
             {

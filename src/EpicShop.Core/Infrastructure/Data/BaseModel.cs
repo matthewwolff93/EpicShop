@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace EpicShop.Core.Infrastructure.Data
 {
@@ -13,9 +14,11 @@ namespace EpicShop.Core.Infrastructure.Data
         //Bellow are a set of metadata values for all the models
         [Required]
         [ReadOnly(true)]
+        [JsonIgnore]
         public bool IsDeleted { get; set; }
 
         [ReadOnly(true)]
+        [JsonIgnore]
         public DateTime? DeletedDateTime { get; set; }
 
         [Required]

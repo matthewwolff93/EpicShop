@@ -7,7 +7,6 @@ namespace EpicShop.Core.Modules.Category.Models
         public MappingProfile()
         {
             CreateMap<CategoryModel, CategoryInputViewModel>().ReverseMap();
-            CreateMap<CategoryModel, CategoryOutputViewModel>().ReverseMap();
         }
     }
 }

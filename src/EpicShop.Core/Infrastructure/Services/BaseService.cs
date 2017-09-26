@@ -6,7 +6,7 @@ using EpicShop.Core.Infrastructure.Extensions;
 
 namespace EpicShop.Core.Infrastructure.Services
 {
-    public class BaseService<TModel,TInputViewModel,TOutputViewModel> where TModel : BaseModel where TInputViewModel : BaseViewModel where TOutputViewModel : BaseViewModel
+    public class BaseService<TModel,TInputViewModel> where TModel : BaseModel where TInputViewModel : BaseViewModel
     {
         protected readonly BaseRepository<TModel> Repository;
 
@@ -20,20 +20,20 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual TOutputViewModel FindById(int id)
+        public virtual TModel FindById(int id)
         {
             TModel model = Repository.FindById(id);
-            return model.ToViewModel<TOutputViewModel>();
+            return model;
         }
 
         /// <summary>
         /// Find all entities
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerable<TOutputViewModel> FindAll()
+        public virtual IEnumerable<TModel> FindAll()
         {
             IEnumerable<TModel> models = Repository.FindAll();
-            return models.ToViewModel<TOutputViewModel>();
+            return models;
         }
 
         /// <summary>
@@ -41,10 +41,10 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public virtual IEnumerable<TOutputViewModel> Find(Expression<Func<TModel, bool>> predicate)
+        public virtual IEnumerable<TModel> Find(Expression<Func<TModel, bool>> predicate)
         {
             IEnumerable<TModel> models = Repository.Find(predicate);
-            return models.ToViewModel<TOutputViewModel>();
+            return models;
         }
 
         /// <summary>
@@ -52,12 +52,12 @@ namespace EpicShop.Core.Infrastructure.Services
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        public virtual TOutputViewModel Add(TInputViewModel viewModel)
+        public virtual TModel Add(TInputViewModel viewModel)
         {
             TModel model = viewModel.ToModel<TModel>();
             Repository.Add(model);
 
-            return model.ToViewModel<TOutputViewModel>();
+            return model;
         }
 
         /// <summary>
