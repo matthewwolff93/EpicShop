@@ -5,14 +5,14 @@ using EpicShop.Core.Modules.Category.Models;
 
 namespace EpicShop.Core.Modules.Category.Services
 {
-    public class CategoryService : BaseService<CategoryModel,CategoryViewModel, CategoryViewModel>
+    public class CategoryService : BaseService<CategoryModel,CategoryInputViewModel, CategoryOutputViewModel>
     {
         public CategoryService(BaseRepository<CategoryModel> repository) : base(repository)
         {
 
         }
 
-        public IEnumerable<CategoryViewModel> FindAllByShopId(int shopId)
+        public IEnumerable<CategoryOutputViewModel> FindAllByShopId(int shopId)
         {
             return Find(x => x.ShopId == shopId);
         }

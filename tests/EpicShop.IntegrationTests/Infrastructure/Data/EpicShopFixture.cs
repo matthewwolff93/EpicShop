@@ -44,9 +44,9 @@ namespace EpicShop.IntegrationTests.Infrastructure.Data
             };
         }
 
-        public CategoryViewModel NewCategory(int shopId)
+        public CategoryOutputViewModel NewCategory(int shopId)
         {
-            return new CategoryViewModel
+            return new CategoryOutputViewModel
             {
                 ShopId = shopId,
                 Name = "EpicShop" + Guid.NewGuid(),

@@ -1,9 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using EpicShop.Core.Infrastructure.Data;
 
 namespace EpicShop.Core.Modules.Category.Models
 {
-    public class CategoryModel : BaseModel
+    public class CategoryInputViewModel : BaseViewModel
     {
         [Required]
         public int ShopId { get; set; }

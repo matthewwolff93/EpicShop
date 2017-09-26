@@ -2,7 +2,7 @@
 
 namespace EpicShop.Core.Modules.Product.Models
 {
-    public class ProductViewModel : BaseViewModel
+    public class ProductInputViewModel : BaseViewModel
     {
         public int ShopId { get; set; }
         public string Name { get; set; }
