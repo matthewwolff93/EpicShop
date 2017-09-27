@@ -28,7 +28,7 @@ namespace EpicShop.API
                 .AddAutoMapper(typeof(BaseModel))
                 .AddDependencyInjection()
                 .AddSqlServer(Configuration)
-                .Configure<AppConfiguration>(Configuration.GetSection(nameof(AppConfiguration)));
+                .Configure<AppSettings>(Configuration);
             
             Mapper.AssertConfigurationIsValid();
         }

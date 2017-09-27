@@ -8,7 +8,7 @@ namespace EpicShop.API.Modules.Category
 {
     public class CategoryController : SimpleController<CategoryService, CategoryModel, CategoryInputViewModel>
     {
-        public CategoryController(CategoryService service,IOptions<AppConfiguration> options) :base(service)
+        public CategoryController(CategoryService service,IOptions<AppSettings> options) :base(service)
         {
             
         }
