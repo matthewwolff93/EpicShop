@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using EpicShop.API.Infrastructure.Extensions;
 using EpicShop.Core.Infrastructure.Data;
 using EpicShop.Core.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,12 +24,8 @@ namespace EpicShop.API
             services.AddMvc();
 
             services.AddAutoMapper(typeof(BaseModel))
-                .ConfigureDependencyInjection()
-                .AddDbContext<EpicShopContext>(options =>
-                {
-                    options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop");
-                    options.EnableSensitiveDataLogging();
-                });
+                .AddDependencyInjection()
+                .AddDatabase();
 
             Mapper.AssertConfigurationIsValid();
         }
@@ -41,8 +37,13 @@ namespace EpicShop.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseGlobalExceptionHandler();
+            }
 
             app.UseMvc();
+
         }
     }
 }

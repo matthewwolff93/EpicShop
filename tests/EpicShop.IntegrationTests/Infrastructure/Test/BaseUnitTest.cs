@@ -17,7 +17,7 @@ namespace EpicShop.IntegrationTests.Infrastructure.Test
         public BaseUnitTest()
         {
             ServiceProvider = new ServiceCollection()
-                .ConfigureDependencyInjection()
+                .AddDependencyInjection()
                 .AddAutoMapper(typeof(BaseModel))
                 .AddDbContext<EpicShopContext>(options => options.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop"))
                 .BuildServiceProvider();
