@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EpicShop.API.Infrastructure.Extensions;
+using EpicShop.Core.Infrastructure.Configuration;
 using EpicShop.Core.Infrastructure.Data;
 using EpicShop.Core.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -23,10 +24,12 @@ namespace EpicShop.API
         {
             services.AddMvc();
 
-            services.AddAutoMapper(typeof(BaseModel))
+            services
+                .AddAutoMapper(typeof(BaseModel))
                 .AddDependencyInjection()
-                .AddDatabase();
-
+                .AddSqlServer(Configuration)
+                .Configure<AppConfiguration>(Configuration.GetSection(nameof(AppConfiguration)));
+            
             Mapper.AssertConfigurationIsValid();
         }
 

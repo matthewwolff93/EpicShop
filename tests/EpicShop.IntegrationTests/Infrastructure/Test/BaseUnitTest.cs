@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using EpicShop.Core.Infrastructure.Data;
 using EpicShop.Core.Infrastructure.Extensions;
-using EpicShop.Core.Modules.Shop.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
