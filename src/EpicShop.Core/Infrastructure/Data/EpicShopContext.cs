@@ -1,4 +1,5 @@
 ﻿using EpicShop.Core.Infrastructure.Extensions;
+using EpicShop.Core.Infrastructure.Services;
 using EpicShop.Core.Modules.Category.Models;
 using EpicShop.Core.Modules.Product.Models;
 using EpicShop.Core.Modules.Shop.Models;
@@ -8,9 +9,11 @@ namespace EpicShop.Core.Infrastructure.Data
 {
     public class EpicShopContext : DbContext
     {
-        public EpicShopContext(DbContextOptions<EpicShopContext> options) : base(options)
-        {
+        private readonly IUserManager _userManager;
 
+        public EpicShopContext(DbContextOptions<EpicShopContext> options, IUserManager userManager) : base(options)
+        {
+            _userManager = userManager;
         }
 
         public DbSet<CategoryModel> Category { get; set; }
@@ -19,6 +22,7 @@ namespace EpicShop.Core.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<ShopModel>()
                 .HasQueryFilter(p => !p.IsDeleted);
 
@@ -32,7 +36,7 @@ namespace EpicShop.Core.Infrastructure.Data
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();
-            ChangeTracker.Entries().UpdateMetadataOnSave();
+            ChangeTracker.Entries().UpdateMetadataOnSave(_userManager);
 
             return base.SaveChanges();
         }

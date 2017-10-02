@@ -13,7 +13,6 @@ namespace EpicShop.UnitTests
             var builder = new DbContextOptionsBuilder<EpicShopContext>();
             builder.UseSqlServer(@"Data Source=localhost;Integrated Security=SSPI;Initial Catalog=EpicShop");
 
-            var context = new EpicShopContext(builder.Options);
 
             //TestForShop(context);
         }
